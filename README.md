@@ -89,12 +89,17 @@ const toggleConsent = consent => (dispatch, getState) => {
 	}));
 
 	if (!consent) {
-		dispatch(update('errors', `Show !consent error`, {
-			error: 'You need to grant consent to proceed'
+		dispatch(update('app', `Show error & disable button`, {
+			error: {
+				msg: 'You need to grant consent to proceed',
+				type: 'flash',
+			},
+			button: { able: false }
 		}));
 	}
 };
 // you need to add the redux-thunk middleware for this example to work
+// we often find ourselves wrapping groups of state updates within a thunk-action to easily access dispatch and getState
 ```
 
 # TODO:
