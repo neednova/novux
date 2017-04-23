@@ -7,14 +7,14 @@ We wrote `nova-redux` to solve several recurring problems when writing & maintai
 
 1. too much boilerplate: we found ourselves writing dozens/hundreds of lines of action-creator and reducer code when the underlying logic is the same — updating or reseting a state
 2. high maintenance cost: our redux test suite grew at the same rate as our redux code base, making maintenance costs high
-3. poor readability: our redux code was hard to follow as while most of our ux logic was written in functions or thunk-actions but the definition of state udpates were tucked inside action-creators.
+3. poor readability: we found redux code increasingly hard to follow as the codebase grew because of a lack of common pattern to define state changes, as well as too much separation between where our ux logic was handled (mainly functions and thunk actions) and where state changes were declared (mainly action creators).
 
 ## Installation
 
 ```bash
 npm install nova-redux
 npm run build
-npm run test 
+npm run test
 ```
 
 ## Get started
