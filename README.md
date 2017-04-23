@@ -51,6 +51,8 @@ For example:
 ```js
 import { update, reset } from 'nova-redux';
 
+// dispatch is provided by redux: http://redux.js.org/docs/api/Store.html#dispatchaction
+
 // update a value
 dispatch(update('user', 'Change username', {
 	username: 'Stash',
@@ -85,6 +87,9 @@ dispatch(update('user', `${username} ${consent ? 'grants' : 'revokes'} consent`,
 Using the `nova-redux` pattern has allowed us to declare increasingly complicated sets of state updates in simple and consistent ways.
 
 ```js
+// you need to add the redux-thunk middleware to your store for this example to work
+// we often wrap sets of state updates within a thunk-action to easily access dispatch and getState
+
 const toggleConsent = consent => (dispatch, getState) => {
 	const { username } = getState().user;
 	dispatch(update('user', `${username} ${consent ? 'grants' : 'revokes'} consent`, {
@@ -101,7 +106,4 @@ const toggleConsent = consent => (dispatch, getState) => {
 		}));
 	}
 };
-// you need to add the redux-thunk middleware for this example to work
-// we often find ourselves wrapping groups of state updates within a thunk-action
-// to easily access dispatch and getState
 ```
