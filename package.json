@@ -2,6 +2,7 @@
   "name": "nova-redux",
   "version": "1.0.0",
   "description": "Simple reducer generator and update/reset action creators.",
+  "repository": "https://github.com/julesterrien/redux-updeep",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +11,9 @@
     "nova",
     "redux"
   ],
-  "author": "Jules Terrien",
-  "license": "ISC"
+  "author": "Jules Terrien <jules@neednova.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash.omit": "^4.5.0"
+  }
 }

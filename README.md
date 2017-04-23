@@ -32,7 +32,7 @@ const initialStates = {
 const userReducer = createReducer('user', initialStates.user);
 ```
 
-### 2. Dispatching actions
+### 2. Dispatch actions
 
 `nova-redux` works by using only two actions: update and reset.
 
