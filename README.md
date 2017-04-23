@@ -79,7 +79,7 @@ dispatch(update('user', `${username} ${consent ? 'grants' : 'revokes'} consent`,
 }));
 ```
 
-### 3. Conclusion
+### 3. Connecting the dots
 Using the `nova-redux` pattern has allowed us to declare increasingly complicated sets of state updates in simple and consistent ways.
 
 ```js
@@ -103,9 +103,3 @@ const toggleConsent = consent => (dispatch, getState) => {
 // we often find ourselves wrapping groups of state updates within a thunk-action
 // to easily access dispatch and getState
 ```
-
-# TODO:
-
-- Debug test suite
-- Add test for omitOrReset
-- Add license
