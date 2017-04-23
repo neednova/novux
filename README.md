@@ -31,7 +31,7 @@ const userReducer = createReducer('user', initialStates.user);
 ```
 
 ### 2. Dispatch actions
-`nova-redux` works by using only two actions: update and reset.
+`nova-redux` works by using only two actions: `update` and `reset`.
 
 `update` is used to update the state of a single reducer given an object.
 `reset` is used to reset the reducer to its initial state or remove specific keys.
