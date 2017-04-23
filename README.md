@@ -7,7 +7,7 @@ We wrote `nova-redux` to solve several recurring problems when writing & maintai
 
 1. too much boilerplate: we found ourselves writing dozens/hundreds of lines of action-creator and reducer code when the underlying logic is the same — updating or reseting a state
 2. high maintenance cost: our redux test suite grew at the same rate as our redux code base, making maintenance costs high
-3. poor readability: our redux code was hard to follow as while most of our ux logic was written in functions or thunk-actions, the definition of state changes were tucked inside action-creators.
+3. poor readability: our redux code was hard to follow as while most of our ux logic was written in functions or thunk-actions but the definition of state udpates were tucked inside action-creators.
 
 ## Installation
 
@@ -41,8 +41,8 @@ Both actions have the following signature:
 
 This signature allows you define state updates in a declarative way, making the code easier to organize and follow:
 - actionName: how is the state being changed?
-- reducer: which reducer ('who') is being affect?
-- tag: why this change?
+- reducer: which reducer (ie. who) is being affected?
+- tag: why is this change relevant?
 - options: what values are affected?
 
 For example:
@@ -59,9 +59,10 @@ dispatch(reset('user', 'Reset the initial state', {
 	reset: [],
 }));
 
-// to reset specific keys fill up the array with names.
-// if the key is undefined in the initial state, it will be removed from the object
-// use dot.notation to provide a path to reset nested keys. If the path returns undefined, an error will be returned
+// to reset specific keys fill up the array with string values matching the state's keys.
+// if the key is undefined in the initial state, it will be removed from the object.
+// you can use dot.notation to provide a path to reset nested keys.
+// If the path returns undefined, an error will be returned.
 dispatch(reset('user', 'Reset specific keys', {
 	reset: ['username', 'numbers.home'],
 }));
