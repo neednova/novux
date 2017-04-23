@@ -1,17 +1,17 @@
 import omit from 'lodash.omit';
 
-const UPDATE_STATE = 'UPDATE_STATE';
-const RESET_STATE = 'RESET_STATE';
+const UPDATE = 'UPDATE';
+const RESET = 'RESET';
 
 const update = (reducer, tag, state) => ({
-	type: UPDATE_STATE,
+	type: UPDATE,
 	reducer,
 	tag,
 	state,
 });
 
 const reset = (reducer, tag, state) => ({
-	type: RESET_STATE,
+	type: RESET,
 	reducer,
 	tag,
 	state,
@@ -32,7 +32,7 @@ const createReducer = (name, initialState) => (state = initialState, action) => 
 	}
 
 	switch (action.type) {
-	case UPDATE_STATE:
+	case UPDATE:
 		if (action.reducer === name) {
 			const newState = action.state;
 			return {
@@ -43,7 +43,7 @@ const createReducer = (name, initialState) => (state = initialState, action) => 
 		}
 		return state;
 
-	case RESET_STATE:
+	case RESET:
 		if (action.reducer === name) {
 			const newState = action.reset.state;
 			if (newState.length === 0) {
