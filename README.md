@@ -59,11 +59,11 @@ dispatch(reset('user', 'Reset the initial state', {
 	reset: [],
 }));
 
-// to reset specific keys (or remove them if they don't exist in the initial state)
-// fill up the array with keys.
+// to reset specific keys fill up the array with names.
+// use dot.notation to provide a path and access nested keys
+// if the key (or the last key in a provided path) is undefined in the initial state, it will be removed from the object
 dispatch(reset('user', 'Reset specific keys', {
-	reset: ['username'],
-	// reset: ['names.firstName']  <-- or use dot notation to reset or remove nested keys
+	reset: ['username', 'numbers.home'],
 }));
 ```
 
