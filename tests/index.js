@@ -1,7 +1,7 @@
 /* global describe, it */
 
 import * as chai from 'chai';
-import novaRedux from './src';
+import novaRedux from '../build';
 
 const { assert } = chai;
 const { update, reset, createReducer } = novaRedux;

@@ -80,7 +80,7 @@ dispatch(update('user', `${username} ${consent ? 'grants' : 'revokes'} consent`,
 ```
 
 ### 3. Conclusion
-Using the `nova-redux` pattern has allowed us to declare increasingly complicated state updates in simple ways.
+Using the `nova-redux` pattern has allowed us to declare increasingly complicated sets of state updates in simple and consistent ways.
 
 ```js
 const toggleConsent = consent => (dispatch, getState) => {
