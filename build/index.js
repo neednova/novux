@@ -55,7 +55,7 @@ var createReducer = function createReducer(name, initialState) {
 		if ((typeof action === 'undefined' ? 'undefined' : _typeof(action)) !== 'object') {
 			return new Error('Expected action to be an object');
 		}
-		if (action.type === RESET && !action.reset.state.isArray()) {
+		if (action.type === RESET && !Array.isArray(action.state.reset)) {
 			return new Error('expected reset options to be an array');
 		}
 
@@ -71,7 +71,7 @@ var createReducer = function createReducer(name, initialState) {
 
 			case RESET:
 				if (action.reducer === name) {
-					var _nextState = action.reset.state;
+					var _nextState = action.state.reset;
 					if (_nextState.length === 0) {
 						return initialState;
 					}

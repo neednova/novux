@@ -1,3 +1,5 @@
+import set from 'lodash.set';
+
 // https://stackoverflow.com/questions/6491463/accessing-nested-javascript-objects-with-string-key
 const resolve = (path, obj) => {
     return path.split('.').reduce((prev, curr) => {
@@ -25,10 +27,10 @@ const resetOrOmit = (initialState, state, keys) => {
 			// key is a path in dot notation
 			// reset this key to its initial state or return an error
 			const value = resolve(key, initialState);
-			if (value) {
-				_.set(resetState, key, value);
+			if (typeof value !== 'undefined') {
+				set(resetState, key, value);
 			} else {
-				return new Error('Provided path does not exist');
+				throw new Error('Provided path does not exist');
 			}
 		}
 	});

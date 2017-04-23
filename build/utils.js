@@ -3,6 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _lodash = require('lodash.set');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // https://stackoverflow.com/questions/6491463/accessing-nested-javascript-objects-with-string-key
 var resolve = function resolve(path, obj) {
 	return path.split('.').reduce(function (prev, curr) {
@@ -30,10 +37,10 @@ var resetOrOmit = function resetOrOmit(initialState, state, keys) {
 			// key is a path in dot notation
 			// reset this key to its initial state or return an error
 			var value = resolve(key, initialState);
-			if (value) {
-				_.set(resetState, key, value);
+			if (typeof value !== 'undefined') {
+				(0, _lodash2.default)(resetState, key, value);
 			} else {
-				return new Error('Provided path does not exist');
+				throw new Error('Provided path does not exist');
 			}
 		}
 	});

@@ -31,7 +31,7 @@ const createReducer = (name, initialState) => (state = initialState, action) => 
 	if (typeof action !== 'object') {
 		return new Error('Expected action to be an object');
 	}
-	if (action.type === RESET && !action.reset.state.isArray()) {
+	if (action.type === RESET && !Array.isArray(action.state.reset)) {
 		return new Error('expected reset options to be an array');
 	}
 
@@ -49,7 +49,7 @@ const createReducer = (name, initialState) => (state = initialState, action) => 
 
 	case RESET:
 		if (action.reducer === name) {
-			const nextState = action.reset.state;
+			const nextState = action.state.reset;
 			if (nextState.length === 0) { return initialState; }
 			const resetState = resetOrOmit(initialState, state, nextState);
 			return {
