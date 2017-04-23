@@ -61,7 +61,8 @@ dispatch(reset('user', 'Reset the initial state', {
 
 // to reset specific keys fill up the array with names.
 // use dot.notation to provide a path and access nested keys
-// if the key (or the last key in a provided path) is undefined in the initial state, it will be removed from the object
+// if the key (or the last key in a provided path) is undefined in the initial state,
+// it will be removed from the object
 dispatch(reset('user', 'Reset specific keys', {
 	reset: ['username', 'numbers.home'],
 }));
@@ -99,7 +100,8 @@ const toggleConsent = consent => (dispatch, getState) => {
 	}
 };
 // you need to add the redux-thunk middleware for this example to work
-// we often find ourselves wrapping groups of state updates within a thunk-action to easily access dispatch and getState
+// we often find ourselves wrapping groups of state updates within a thunk-action
+// to easily access dispatch and getState
 ```
 
 # TODO:

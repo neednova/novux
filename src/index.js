@@ -1,4 +1,5 @@
-import omit from 'lodash.omit';
+import utils from 'utils';
+const { resetOrOmit } = utils;
 
 const UPDATE = 'UPDATE';
 const RESET = 'RESET';
@@ -30,14 +31,17 @@ const createReducer = (name, initialState) => (state = initialState, action) => 
 	if (typeof action !== 'object') {
 		return new Error('Expected action to be an object');
 	}
+	if (action.type === RESET && !action.reset.state.isArray()) {
+		return new Error('expected reset options to be an array');
+	}
 
 	switch (action.type) {
 	case UPDATE:
 		if (action.reducer === name) {
-			const newState = action.state;
+			const nextState = action.state;
 			return {
 				...state,
-				...newState,
+				...nextState,
 				_lastAction: action.tag,
 			};
 		}
@@ -45,11 +49,9 @@ const createReducer = (name, initialState) => (state = initialState, action) => 
 
 	case RESET:
 		if (action.reducer === name) {
-			const newState = action.reset.state;
-			if (newState.length === 0) {
-				return initialState;
-			}
-			const resetState = omit(state, newState);
+			const nextState = action.reset.state;
+			if (nextState.length === 0) { return initialState; }
+			const resetState = resetOrOmit(initialState, state, nextState);
 			return {
 				...resetState,
 				_lastAction: action.tag,
@@ -61,7 +63,6 @@ const createReducer = (name, initialState) => (state = initialState, action) => 
 		return state;
 	}
 };
-
 
 const novaRedux = {
 	createReducer,
