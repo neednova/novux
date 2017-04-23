@@ -71,3 +71,11 @@ dispatch(reset('user', 'Reset specific keys', {
 	// reset: ['names.firstName']  <-- or use dot notation to reset or remove nested keys
 }));
 ```
+
+# TODO:
+
+Add test suite
+Add dot.notation in reset state
+Add eslint
+Add license
+Add babelrc

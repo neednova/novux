@@ -1,7 +1,7 @@
 {
   "name": "nova-redux",
   "version": "1.0.0",
-  "description": "Simple reducer generator and update/reset action creators.",
+  "description": "A simple take on redux",
   "repository": "https://github.com/julesterrien/redux-updeep",
   "main": "index.js",
   "scripts": {
