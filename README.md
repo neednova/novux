@@ -24,7 +24,7 @@ import createReducer from 'nova-redux';
 
 const initialStates = {
   user: {
-    name: 'Jules',
+    name: 'Michael',
     company: 'Nova Credit'
   },
 };
@@ -56,7 +56,7 @@ import { update, reset } from 'nova-redux';
 
 // update a value
 dispatch(update('user', 'Change username', {
-	username: 'Loek',
+	username: 'Stash',
 }));
 
 // to reset the initial state, use an empty array
