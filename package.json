@@ -6,7 +6,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "babel src -d build",
-    "test": "mocha --opts .mocharc ./tests/index.js"
+    "test": "npm run build && mocha --opts .mocharc ./tests/index.js"
   },
   "keywords": [
     "nova",

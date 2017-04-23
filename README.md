@@ -13,6 +13,8 @@ We wrote `nova-redux` to solve several recurring problems when writing & maintai
 
 ```bash
 npm install nova-redux
+npm run build
+npm run test 
 ```
 
 ## Get started
