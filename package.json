@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple take on redux",
   "repository": "https://github.com/julesterrien/redux-updeep",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
     "build": "babel src -d build",
     "test": "npm run build && mocha --opts .mocharc ./tests/index.js"
