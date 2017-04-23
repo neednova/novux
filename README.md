@@ -2,7 +2,6 @@
 
 `nova-redux` allows you to considerably reduce Redux boilerplate using a opinionated reducer generator and set of actions.
 
-
 ## Why `nova-redux`?
 We wrote `nova-redux` to solve several problems we faced while writing and maintaining our redux apps:
 
@@ -33,7 +32,7 @@ const initialStates = {
 const userReducer = createReducer('user', initialStates.user);
 ```
 
-### 2. Dispatch actions
+### 2. Dispatching actions
 
 `nova-redux` works by using only two actions: update and reset.
 
@@ -42,6 +41,14 @@ const userReducer = createReducer('user', initialStates.user);
 
 Both actions have the following signature:
 `actionName(reducerName, tag, options)`
+
+This signature allows you define state updates in a declarative way:
+- actionName: how is the state being changed?
+- reducer: which reducer ('who') is being affect?
+- tag: why this change?
+- options: what values are affected?
+
+This approach has allowed us to better organize our code and make it easier to follow the next time around.
 
 For example:
 ```js
