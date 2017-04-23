@@ -1,0 +1,15 @@
+{
+  "name": "nova-redux",
+  "version": "1.0.0",
+  "description": "Simple reducer generator and update/reset action creators.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nova",
+    "redux"
+  ],
+  "author": "Jules Terrien",
+  "license": "ISC"
+}
