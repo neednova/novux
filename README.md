@@ -64,8 +64,10 @@ dispatch(reset('user', 'Reset the initial state', {
 	reset: [],
 }));
 
-// to reset specific keys fill up the array with keys
-dispatch(reset('user', 'Reset to initial state', {
+// to reset specific keys (or remove them if they don't exist in the initial state)
+// fill up the array with keys.
+dispatch(reset('user', 'Reset specific keys', {
 	reset: ['username'],
+	// reset: ['names.firstName']  <-- or use dot notation to reset or remove nested keys
 }));
 ```
