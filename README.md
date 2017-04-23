@@ -34,7 +34,7 @@ const userReducer = createReducer('user', initialStates.user);
 `nova-redux` works by using only two actions: `update` and `reset`.
 
 `update` is used to update the state of a single reducer given an object.
-`reset` is used to reset the reducer to its initial state or remove specific keys.
+`reset` is used to reset the reducer to its initial state or reset specific keys.
 
 Both actions have the following signature:
 `actionName(reducerName, tag, options)`
@@ -60,9 +60,8 @@ dispatch(reset('user', 'Reset the initial state', {
 }));
 
 // to reset specific keys fill up the array with names.
-// use dot.notation to provide a path and access nested keys
-// if the key (or the last key in a provided path) is undefined in the initial state,
-// it will be removed from the object
+// if the key is undefined in the initial state, it will be removed from the object
+// use dot.notation to provide a path to reset nested keys. If the path returns undefined, an error will be returned
 dispatch(reset('user', 'Reset specific keys', {
 	reset: ['username', 'numbers.home'],
 }));
@@ -106,8 +105,6 @@ const toggleConsent = consent => (dispatch, getState) => {
 
 # TODO:
 
-- Add test suite
-- Add dot.notation in reset state
-- Add eslint
+- Debug test suite
+- Add test for omitOrReset
 - Add license
-- Add babelrc

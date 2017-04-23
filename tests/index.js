@@ -4,10 +4,9 @@ import * as chai from 'chai';
 import novaRedux from './src';
 
 const { assert } = chai;
-
 const { update, reset, createReducer } = novaRedux;
 
-const test = describe('createReducer:', () => {
+const test = describe('Nova-Redux:', () => {
 	it('should update its state', (done) => {
 		const api = createReducer('api');
 		const initialState = { status: { isFetching: false } };
