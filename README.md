@@ -99,8 +99,8 @@ const toggleConsent = consent => (dispatch, getState) => {
 
 # TODO:
 
-Add test suite
-Add dot.notation in reset state
-Add eslint
-Add license
-Add babelrc
+- Add test suite
+- Add dot.notation in reset state
+- Add eslint
+- Add license
+- Add babelrc
