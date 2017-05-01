@@ -143,7 +143,6 @@ const test = describe('Nova-Redux:', () => {
 		const resetAction = reset('api', 'reset wrong path', {
 			reset: ['wrong.path'],
 		});
-
 		const wrapper = () => {
 			api(nextState, resetAction);
 		}

@@ -20,6 +20,10 @@ var resetOrOmit = _utils2.default.resetOrOmit;
 var UPDATE = 'UPDATE';
 var RESET = 'RESET';
 
+/*
+* update
+* update the provided state of a given reducer
+*/
 var update = function update(reducer, tag, state) {
 	return {
 		type: UPDATE,
@@ -29,6 +33,10 @@ var update = function update(reducer, tag, state) {
 	};
 };
 
+/*
+* reset
+* reset the state of a given reducer, or specific keys of a reducer
+*/
 var reset = function reset(reducer, tag, state) {
 	return {
 		type: RESET,
@@ -38,6 +46,10 @@ var reset = function reset(reducer, tag, state) {
 	};
 };
 
+/*
+* createReducer
+* udpate or reset the state of a given reducer
+*/
 var createReducer = function createReducer(name, initialState) {
 	return function () {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;

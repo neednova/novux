@@ -15,7 +15,7 @@
   "author": "Jules Terrien <jules@neednova.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash.set": "^4.3.2"
+    "dotty": "0.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

@@ -1,12 +1,12 @@
-import set from 'lodash.set';
+import dotty from 'dotty';
 
-// https://stackoverflow.com/questions/6491463/accessing-nested-javascript-objects-with-string-key
-const resolve = (path, obj) => {
-    return path.split('.').reduce((prev, curr) => {
-        return prev ? prev[curr] : undefined
-    }, obj || self)
-}
-
+/*
+* resetOrOmit
+* initialState: object with the reducer's initial state
+* state: object with the reducer's initial state
+* keys: array of strings representing keys or paths to keys to reset
+* returns an object with the completely or partially resetted state
+*/
 const resetOrOmit = (initialState, state, keys) => {
 	const resetState = state;
 
@@ -15,23 +15,12 @@ const resetOrOmit = (initialState, state, keys) => {
 			return new Error('Expected reset key option to be a string')
 		}
 
-		if (!key.includes('.')) {
-			// key is name, not a dot notation path
-			// reset this key to its initial state or omit it
-			if (initialState.hasOwnProperty(key)) {
-				resetState[key] = initialState[key];
-			} else {
-				delete resetState[key];
-			}
+		const hasInitialState = dotty.exists(initialState, key);
+
+		if (hasInitialState) {
+			dotty.put(resetState, key, initialState[key]);
 		} else {
-			// key is a path in dot notation
-			// reset this key to its initial state or return an error
-			const value = resolve(key, initialState);
-			if (typeof value !== 'undefined') {
-				set(resetState, key, value);
-			} else {
-				throw new Error('Provided path does not exist');
-			}
+			dotty.remove(resetState, key)
 		}
 	});
 

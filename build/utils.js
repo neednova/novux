@@ -4,19 +4,19 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _lodash = require('lodash.set');
+var _dotty = require('dotty');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _dotty2 = _interopRequireDefault(_dotty);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// https://stackoverflow.com/questions/6491463/accessing-nested-javascript-objects-with-string-key
-var resolve = function resolve(path, obj) {
-	return path.split('.').reduce(function (prev, curr) {
-		return prev ? prev[curr] : undefined;
-	}, obj || self);
-};
-
+/*
+* resetOrOmit
+* initialState: object with the reducer's initial state
+* state: object with the reducer's initial state
+* keys: array of strings representing keys or paths to keys to reset
+* returns an object with the completely or partially resetted state
+*/
 var resetOrOmit = function resetOrOmit(initialState, state, keys) {
 	var resetState = state;
 
@@ -25,23 +25,12 @@ var resetOrOmit = function resetOrOmit(initialState, state, keys) {
 			return new Error('Expected reset key option to be a string');
 		}
 
-		if (!key.includes('.')) {
-			// key is name, not a dot notation path
-			// reset this key to its initial state or omit it
-			if (initialState.hasOwnProperty(key)) {
-				resetState[key] = initialState[key];
-			} else {
-				delete resetState[key];
-			}
+		var hasInitialState = _dotty2.default.exists(initialState, key);
+
+		if (hasInitialState) {
+			_dotty2.default.put(resetState, key, initialState[key]);
 		} else {
-			// key is a path in dot notation
-			// reset this key to its initial state or return an error
-			var value = resolve(key, initialState);
-			if (typeof value !== 'undefined') {
-				(0, _lodash2.default)(resetState, key, value);
-			} else {
-				throw new Error('Provided path does not exist');
-			}
+			_dotty2.default.remove(resetState, key);
 		}
 	});
 

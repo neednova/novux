@@ -4,6 +4,10 @@ const { resetOrOmit } = utils;
 const UPDATE = 'UPDATE';
 const RESET = 'RESET';
 
+/*
+* update
+* update the provided state of a given reducer
+*/
 const update = (reducer, tag, state) => ({
 	type: UPDATE,
 	reducer,
@@ -11,6 +15,10 @@ const update = (reducer, tag, state) => ({
 	state,
 });
 
+/*
+* reset
+* reset the state of a given reducer, or specific keys of a reducer
+*/
 const reset = (reducer, tag, state) => ({
 	type: RESET,
 	reducer,
@@ -18,6 +26,10 @@ const reset = (reducer, tag, state) => ({
 	state,
 });
 
+/*
+* createReducer
+* udpate or reset the state of a given reducer
+*/
 const createReducer = (name, initialState) => (state = initialState, action) => {
 	if (typeof name !== 'string') {
 		return new Error('Expected reducer name to be a string');
