@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.createReducer = exports.reset = exports.update = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -27,7 +28,7 @@ var RESET = 'RESET';
 * @param	{Ojbect}	state the keys to update
 * @return {Object} 	an action creator object
 */
-var update = function update(reducer, tag, state) {
+var update = exports.update = function update(reducer, tag, state) {
 	return {
 		type: UPDATE,
 		reducer: reducer,
@@ -43,7 +44,7 @@ var update = function update(reducer, tag, state) {
 * @param	{Ojbect}	state the keys to reset
 * @return {Object} 	an action creator object
 */
-var reset = function reset(reducer, tag, state) {
+var reset = exports.reset = function reset(reducer, tag, state) {
 	return {
 		type: RESET,
 		reducer: reducer,
@@ -58,7 +59,7 @@ var reset = function reset(reducer, tag, state) {
 * @param	{Object}	initialState	the reducer's initial state
 * @return {Function} a createReducer function which handles update & reset actions
 */
-var createReducer = function createReducer(name, initialState) {
+var createReducer = exports.createReducer = function createReducer(name, initialState) {
 	return function () {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 		var action = arguments[1];
