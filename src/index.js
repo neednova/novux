@@ -11,7 +11,7 @@ const RESET = 'RESET';
 * @param	{Ojbect}	state the keys to update
 * @return {Object} 	an action creator object
 */
-const update = (reducer, tag, state) => ({
+export const update = (reducer, tag, state) => ({
 	type: UPDATE,
 	reducer,
 	tag,
@@ -25,7 +25,7 @@ const update = (reducer, tag, state) => ({
 * @param	{Ojbect}	state the keys to reset
 * @return {Object} 	an action creator object
 */
-const reset = (reducer, tag, state) => ({
+export const reset = (reducer, tag, state) => ({
 	type: RESET,
 	reducer,
 	tag,
@@ -38,7 +38,7 @@ const reset = (reducer, tag, state) => ({
 * @param	{Object}	initialState	the reducer's initial state
 * @return {Function} a createReducer function which handles update & reset actions
 */
-const createReducer = (name, initialState) => (state = initialState, action) => {
+export const createReducer = (name, initialState) => (state = initialState, action) => {
 	if (typeof name !== 'string') {
 		return new Error('Expected reducer name to be a string');
 	}
