@@ -1,12 +1,15 @@
 import utils from './utils';
-const { resetOrOmit } = utils;
+const { resetState } = utils;
 
 const UPDATE = 'UPDATE';
 const RESET = 'RESET';
 
-/*
+/**
 * update
-* update the provided state of a given reducer
+* @param	{String}	reducer	the name of the reducer to update
+* @param	{String}	tag	a short description of the update
+* @param	{Ojbect}	state the keys to update
+* @return {Object} 	an action creator object
 */
 const update = (reducer, tag, state) => ({
 	type: UPDATE,
@@ -15,9 +18,12 @@ const update = (reducer, tag, state) => ({
 	state,
 });
 
-/*
+/**
 * reset
-* reset the state of a given reducer, or specific keys of a reducer
+* @param	{String}	reducer	the name of the reducer to reset
+* @param	{String}	tag	a short description of the reset
+* @param	{Ojbect}	state the keys to reset
+* @return {Object} 	an action creator object
 */
 const reset = (reducer, tag, state) => ({
 	type: RESET,
@@ -26,9 +32,11 @@ const reset = (reducer, tag, state) => ({
 	state,
 });
 
-/*
+/**
 * createReducer
-* udpate or reset the state of a given reducer
+* @param	{String}	name	the reducer's name
+* @param	{Object}	initialState	the reducer's initial state
+* @return {Function} a createReducer function which handles update & reset actions
 */
 const createReducer = (name, initialState) => (state = initialState, action) => {
 	if (typeof name !== 'string') {
@@ -63,9 +71,9 @@ const createReducer = (name, initialState) => (state = initialState, action) => 
 		if (action.reducer === name) {
 			const nextState = action.state.reset;
 			if (nextState.length === 0) { return initialState; }
-			const resetState = resetOrOmit(initialState, state, nextState);
+			const resettedState = resetState(initialState, state, nextState);
 			return {
-				...resetState,
+				...resettedState,
 				_lastAction: action.tag,
 			};
 		}

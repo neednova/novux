@@ -11,34 +11,45 @@ var _dotty2 = _interopRequireDefault(_dotty);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
-* resetOrOmit
-* @param	{Object}	initialState: object with the reducer's initial state
-* @param	{Object} 	state: object with the reducer's initial state
-* @param	{Array} 	keys: array of strings representing keys or paths to keys to reset
+* resetState
+* @param	{Object}	initialState object with the reducer's initial state
+* @param	{Object} 	state object with the reducer's initial state
+* @param	{Array} 	keys array of strings representing keys or paths to keys to reset
 * @return {Object} 	an object with the completely or partially resetted state
 */
-var resetOrOmit = function resetOrOmit(initialState, state, keys) {
-	var resetState = state;
+var resetState = function resetState(initialState, state, nextState) {
+	var returnedState = Object.assign({}, state);
 
-	keys.forEach(function (key) {
+	nextState.forEach(function (key) {
 		if (typeof key !== 'string') {
 			return new Error('Expected reset key option to be a string');
 		}
 
-		var hasInitialState = _dotty2.default.exists(initialState, key);
-
-		if (hasInitialState) {
-			_dotty2.default.put(resetState, key, initialState[key]);
+		if (key.includes('.')) {
+			var paths = key.split('.');
+			var subPaths = key.split('.');
+			paths.some(function (path) {
+				var subPath = subPaths.join('.');
+				var exists = _dotty2.default.exists(initialState, subPath);
+				if (exists) {
+					var value = _dotty2.default.get(initialState, subPath);
+					_dotty2.default.put(returnedState, subPath, value);
+					return true;
+				}
+				subPaths.pop();
+				return false;
+			});
 		} else {
-			_dotty2.default.remove(resetState, key);
+			var hasInitialState = initialState.hasOwnProperty(key);
+			hasInitialState ? returnedState[key] = initialState[key] : delete returnedState[key];
 		}
 	});
 
-	return resetState;
+	return returnedState;
 };
 
 var utils = {
-	resetOrOmit: resetOrOmit
+	resetState: resetState
 };
 
 exports.default = utils;

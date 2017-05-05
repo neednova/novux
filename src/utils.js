@@ -1,34 +1,45 @@
 import dotty from 'dotty';
 
 /**
-* resetOrOmit
-* @param	{Object}	initialState: object with the reducer's initial state
-* @param	{Object} 	state: object with the reducer's initial state
-* @param	{Array} 	keys: array of strings representing keys or paths to keys to reset
+* resetState
+* @param	{Object}	initialState object with the reducer's initial state
+* @param	{Object} 	state object with the reducer's initial state
+* @param	{Array} 	keys array of strings representing keys or paths to keys to reset
 * @return {Object} 	an object with the completely or partially resetted state
 */
-const resetOrOmit = (initialState, state, keys) => {
-	const resetState = state;
+const resetState = (initialState, state, nextState) => {
+	const returnedState = Object.assign({}, state);
 
-	keys.forEach((key) => {
+	nextState.forEach((key) => {
 		if (typeof key !== 'string') {
 			return new Error('Expected reset key option to be a string')
 		}
 
-		const hasInitialState = dotty.exists(initialState, key);
-
-		if (hasInitialState) {
-			dotty.put(resetState, key, initialState[key]);
+		if (key.includes('.')) {
+			const paths = key.split('.');
+			const subPaths = key.split('.');
+			paths.some((path) => {
+				const subPath = subPaths.join('.');
+				const exists = dotty.exists(initialState, subPath);
+				if (exists) {
+					const value = dotty.get(initialState, subPath)
+					dotty.put(returnedState, subPath, value);
+					return true;
+				}
+				subPaths.pop();
+				return false;
+			});
 		} else {
-			dotty.remove(resetState, key)
+			const hasInitialState = initialState.hasOwnProperty(key);
+			hasInitialState ? (returnedState[key] = initialState[key]) : delete returnedState[key];
 		}
 	});
 
-	return resetState;
+	return returnedState;
 };
 
 const utils = {
-	resetOrOmit,
+	resetState,
 }
 
 export default utils;

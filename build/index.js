@@ -14,15 +14,18 @@ var _utils2 = _interopRequireDefault(_utils);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var resetOrOmit = _utils2.default.resetOrOmit;
+var resetState = _utils2.default.resetState;
 
 
 var UPDATE = 'UPDATE';
 var RESET = 'RESET';
 
-/*
+/**
 * update
-* update the provided state of a given reducer
+* @param	{String}	reducer	the name of the reducer to update
+* @param	{String}	tag	a short description of the update
+* @param	{Ojbect}	state the keys to update
+* @return {Object} 	an action creator object
 */
 var update = function update(reducer, tag, state) {
 	return {
@@ -33,9 +36,12 @@ var update = function update(reducer, tag, state) {
 	};
 };
 
-/*
+/**
 * reset
-* reset the state of a given reducer, or specific keys of a reducer
+* @param	{String}	reducer	the name of the reducer to reset
+* @param	{String}	tag	a short description of the reset
+* @param	{Ojbect}	state the keys to reset
+* @return {Object} 	an action creator object
 */
 var reset = function reset(reducer, tag, state) {
 	return {
@@ -46,9 +52,11 @@ var reset = function reset(reducer, tag, state) {
 	};
 };
 
-/*
+/**
 * createReducer
-* udpate or reset the state of a given reducer
+* @param	{String}	name	the reducer's name
+* @param	{Object}	initialState	the reducer's initial state
+* @return {Function} a createReducer function which handles update & reset actions
 */
 var createReducer = function createReducer(name, initialState) {
 	return function () {
@@ -87,8 +95,8 @@ var createReducer = function createReducer(name, initialState) {
 					if (_nextState.length === 0) {
 						return initialState;
 					}
-					var resetState = resetOrOmit(initialState, state, _nextState);
-					return _extends({}, resetState, {
+					var resettedState = resetState(initialState, state, _nextState);
+					return _extends({}, resettedState, {
 						_lastAction: action.tag
 					});
 				}
