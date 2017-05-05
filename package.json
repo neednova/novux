@@ -1,8 +1,8 @@
 {
-  "name": "nova-redux",
+  "name": "novux",
   "version": "1.0.0",
-  "description": "A simple take on redux",
-  "repository": "https://github.com/julesterrien/redux-updeep",
+  "description": "Easily update & reset redux state",
+  "repository": "https://github.com/neednova/novux",
   "main": "build/index.js",
   "scripts": {
     "build": "babel src -d build",
@@ -10,7 +10,8 @@
   },
   "keywords": [
     "nova",
-    "redux"
+    "redux",
+		"novux"
   ],
   "author": "Jules Terrien <jules@neednova.com>",
   "license": "MIT",

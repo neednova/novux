@@ -1,26 +1,24 @@
-# nova-redux
+# novux
 
-`nova-redux` allows you to considerably reduce Redux boilerplate using a simple but opinionated reducer generator and set of actions.
+`novux` lets you to write simpler reduce Redux code with less boilerplate. Novux uses a simple but opinionated reducer generator that handles logic for 2 actions: update and reset.
 
-## Why `nova-redux`?
-We wrote `nova-redux` to solve several recurring problems when writing & maintaining redux apps.
-
-1. too much boilerplate: we found ourselves writing dozens/hundreds of lines of action-creator and reducer code when the underlying logic is the same — updating or reseting a state
-2. high maintenance cost: our redux test suite grew at the same rate as our redux code base, making maintenance costs high
-3. poor readability: we found redux code increasingly hard to follow as the codebase grew because of a lack of common pattern to define state changes, as well as too much separation between where our ux logic was handled (mainly functions and thunk actions) and where state changes were declared (mainly action creators).
+`novux` helps us write faster and better redux logic:
+1. less boilerplate: instead of having to write and maintain dozens of actions creators, simply change state using `update` or `reset`.
+2. less maintenance: reduce the number of tests you have to write to only focus on business logic
+3. code faster: easily declare and describe state changes to make coding & collaboration easier
 
 ## Installation
 
 ```bash
-npm install nova-redux
+npm install novux
 npm run build
 npm run test
 ```
 
 ## Get started
-### 1. Create your reducers
+### Create your reducers
 ```js
-import createReducer from 'nova-redux';
+import createReducer from 'novux';
 
 const initialStates = {
   user: {
@@ -32,48 +30,54 @@ const initialStates = {
 const userReducer = createReducer('user', initialStates.user);
 ```
 
-### 2. Dispatch actions
-`nova-redux` works by using only two actions: `update` and `reset`.
+### Dispatch actions
+`novux` lets you run Redux by handling only two actions: `update` and `reset`.
 
 `update` is used to update the state of a single reducer given an object.
-`reset` is used to reset the reducer to its initial state or reset specific keys.
+`reset` is used to reset the reducer to its initial state or reset specific keys to their initial values.
 
 Both actions have the following signature:
 `actionName(reducerName, tag, options)`
 
-This signature allows you define state updates in a declarative way, making the code easier to organize and follow:
 - actionName: how is the state being changed?
-- reducer: which reducer (ie. who) is being affected?
+- reducerName: which reducer is being affected?
 - tag: why is this change relevant?
 - options: what values are affected?
 
-For example:
+Example:
 ```js
-import { update, reset } from 'nova-redux';
+import { update, reset } from 'novux';
 
-// dispatch is provided by redux: http://redux.js.org/docs/api/Store.html#dispatchaction
-
-// update a value
 dispatch(update('user', 'Change username', {
 	username: 'Stash',
 }));
 
-// to reset the initial state, use an empty array
 dispatch(reset('user', 'Reset the initial state', {
 	reset: [],
 }));
 
-// to reset specific keys fill up the array with string values matching the state's keys.
-// if the key is undefined in the initial state, it will be removed from the object.
-// you can use dot.notation to provide a path to reset nested keys.
-// If the path returns undefined, an error will be returned.
 dispatch(reset('user', 'Reset specific keys', {
-	reset: ['username', 'numbers.home'],
+	reset: ['username'],
 }));
+
+// dispatch is provided by redux: http://redux.js.org/docs/api/Store.html#dispatchaction
 ```
 
-We find that using the `tag` string as the action name instead of the type allows for more flexibility and clarity.
-For example, you can use string templates to describe state updates programatically.
+### Use dot notation paths
+When reseting state, you can also pass in paths in dot notation
+```js
+dispatch(reset('user', 'Reset paths', {
+	reset: ['address.street'],
+}));
+
+// if a path is defined in the initial state, it will be reset to its initial value
+// if a path is undefined in the initial state, `novux` will seek the longest sub path defined in the initial state and reset
+```
+
+### Why a tag
+Using the `tag` string instead of an action name to define a state change lets you describe state changes programatically.
+
+The tag is included in the updated state under the key `_lastAction`, allowing you to keep track of what action last affected a specific reducer in your dev tools.
 
 ```js
 const consent = true;
@@ -83,13 +87,10 @@ dispatch(update('user', `${username} ${consent ? 'grants' : 'revokes'} consent`,
 }));
 ```
 
-### 3. Connecting the dots
-Using the `nova-redux` pattern has allowed us to declare increasingly complicated sets of state updates in simple and consistent ways.
+### Connecting the dots
+`novux` can help you declare increasingly complicated sets of state updates in simple and consistent ways.
 
 ```js
-// you need to add the redux-thunk middleware to your store for this example to work
-// we often wrap sets of state updates within a thunk-action to easily access dispatch and getState
-
 const toggleConsent = consent => (dispatch, getState) => {
 	const { username } = getState().user;
 	dispatch(update('user', `${username} ${consent ? 'grants' : 'revokes'} consent`, {
@@ -106,4 +107,5 @@ const toggleConsent = consent => (dispatch, getState) => {
 		}));
 	}
 };
+// this example makes use of redux-thunk to easily access dispatch and state
 ```

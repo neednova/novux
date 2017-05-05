@@ -6,7 +6,7 @@ import novaRedux from '../build';
 const { assert } = chai;
 const { update, reset, createReducer } = novaRedux;
 
-const test = describe('Nova-Redux:', () => {
+const test = describe('novux:', () => {
 	const initialState = { status: { isFetching: false } };
 	let nextState;
 	let api;
