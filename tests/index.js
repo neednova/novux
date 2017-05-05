@@ -7,146 +7,82 @@ const { assert } = chai;
 const { update, reset, createReducer } = novaRedux;
 
 const test = describe('Nova-Redux:', () => {
-	it('should update its state', (done) => {
-		const initialState = { status: { isFetching: false } };
-		const api = createReducer('api', initialState);
+	const initialState = { status: { isFetching: false } };
+	let nextState;
+	let api;
+	beforeEach(() => {
+		api = createReducer('api', initialState);
 		const action = update('api', 'test', {
 			test: true,
 		});
+		nextState = api(initialState, action);
+	})
+
+	it('can update its state', (done) => {
 		const expected = {
 			status: { isFetching: false },    // initial state
 			test: true,                       // new state
-			_lastAction: 'test',              // metaData returned by creators
+			_lastAction: 'test',              // log
 		};
-		const lastState = initialState;
-		const actual = api(lastState, action);
-		assert.deepEqual(actual, expected, 'the reducer updates');
+		assert.deepEqual(nextState, expected, 'the reducer can update its state');
 		done();
 	});
 
-	it('should reset the whole state to initial state', (done) => {
-		const initialState = { status: { isFetching: false } };
-		const api = createReducer('api', initialState);
-		const updateAction = update('api', 'test', {
-			test: true,
-		});
-		let nextState = api(initialState, updateAction);
-		const updateExpected = {
-			status: { isFetching: false },
-			test: true,
-			_lastAction: 'test',
-		};
-		assert.deepEqual(nextState, updateExpected, 'the reducer updates');
-
+	it('can reset the whole state to initial state', (done) => {
 		const resetAction = reset('api', 'Reset the whole state', {
 			reset: [],
 		});
-		nextState = api(nextState, resetAction);
-		assert.deepEqual(nextState, initialState, 'the reducer can reset itself to the initial state');
+		const state = api(nextState, resetAction);
+		assert.deepEqual(state, initialState, 'the reducer can reset itself to the initial state');
 		done();
 	});
 
-	it('should reset given keys', (done) => {
-		const initialState = { status: { isFetching: false } };
-		const api = createReducer('api', initialState);
-		const updateAction = update('api', 'test', {
-			test: true,
-		});
-		const updateExpected = {
-			status: { isFetching: false },
-			test: true,
-			_lastAction: 'test',
-		};
-		let nextState = api(initialState, updateAction);
-		assert.deepEqual(nextState, updateExpected, 'the reducer updates');
-
+	it('can reset specific keys', (done) => {
 		const resetAction = reset('api', 'resetTest', {
 			reset: ['test'],
 		});
-		nextState = api(nextState, resetAction);
-		const resetExpected = {
+		const expected = {
 			status: { isFetching: false },
 			_lastAction: 'resetTest',
 		};
-		assert.deepEqual(nextState, resetExpected, 'the reducer can reset selected keys');
+		const state = api(nextState, resetAction);
+		assert.deepEqual(state, expected, 'the reducer can reset specific keys');
 		done();
 	});
 
-	it('should omit given keys that do not exist in initial state', (done) => {
-		const initialState = { status: { isFetching: false } };
-		const api = createReducer('api', initialState);
-		const updateAction = update('api', 'test', {
-			test: true,
-		});
-		const updateExpected = {
-			status: { isFetching: false },
-			test: true,
-			_lastAction: 'test',
-		};
-		let nextState = api(initialState, updateAction);
-		assert.deepEqual(nextState, updateExpected, 'the reducer updates');
-
+	it('on reset, it will remove specific keys from the state if they do not exist in the initial state', (done) => {
 		const resetAction = reset('api', 'resetTest', {
 			reset: ['test'],
 		});
-		nextState = api(nextState, resetAction);
-		const resetExpected = {
+		const expected = {
 			status: { isFetching: false },
 			_lastAction: 'resetTest',
 		};
-		assert.deepEqual(nextState, resetExpected, 'the reducer can reset selected keys');
+		const state = api(nextState, resetAction);
+		assert.deepEqual(state, expected, 'the reducer can reset selected keys');
 		done();
 	});
 
 	it('should handle resetting the last key/val if given a path', (done) => {
-		const initialState = { status: { isFetching: false } };
-		const api = createReducer('api', initialState);
-		const updateAction = update('api', 'test', {
-			status: {
-				isFetching: true,
-			}
-		});
-		const updateExpected = {
-			status: { isFetching: true },
-			_lastAction: 'test',
-		};
-		let nextState = api(initialState, updateAction);
-		assert.deepEqual(nextState, updateExpected, 'the reducer updates');
-
 		const resetAction = reset('api', 'reset path', {
 			reset: ['status.isFetching'],
 		});
-		nextState = api(nextState, resetAction);
-		const resetExpected = {
+		const expected = {
 			status: { isFetching: false },
 			_lastAction: 'reset path',
 		};
-		assert.deepEqual(nextState, resetExpected, 'the reducer can handle paths');
+		const state = api(nextState, resetAction);
+		assert.deepEqual(state, expected, 'the reducer can handle paths');
 		done();
 	});
 
 	it('should return an error if the path is undefined', (done) => {
-		const initialState = { status: { isFetching: false } };
-		const api = createReducer('api', initialState);
-		const updateAction = update('api', 'test', {
-			status: {
-				isFetching: true,
-			}
-		});
-		const updateExpected = {
-			status: { isFetching: true },
-			_lastAction: 'test',
-		};
-		let nextState = api(initialState, updateAction);
-		assert.deepEqual(nextState, updateExpected, 'the reducer updates');
-
 		const resetAction = reset('api', 'reset wrong path', {
 			reset: ['wrong.path'],
 		});
 		const wrapper = () => {
 			api(nextState, resetAction);
 		}
-
 		assert.throws(wrapper, 'Provided path does not exist');
 		done();
 	});

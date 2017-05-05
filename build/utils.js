@@ -10,12 +10,12 @@ var _dotty2 = _interopRequireDefault(_dotty);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*
+/**
 * resetOrOmit
-* initialState: object with the reducer's initial state
-* state: object with the reducer's initial state
-* keys: array of strings representing keys or paths to keys to reset
-* returns an object with the completely or partially resetted state
+* @param	{Object}	initialState: object with the reducer's initial state
+* @param	{Object} 	state: object with the reducer's initial state
+* @param	{Array} 	keys: array of strings representing keys or paths to keys to reset
+* @return {Object} 	an object with the completely or partially resetted state
 */
 var resetOrOmit = function resetOrOmit(initialState, state, keys) {
 	var resetState = state;

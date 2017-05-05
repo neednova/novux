@@ -1,11 +1,11 @@
 import dotty from 'dotty';
 
-/*
+/**
 * resetOrOmit
-* initialState: object with the reducer's initial state
-* state: object with the reducer's initial state
-* keys: array of strings representing keys or paths to keys to reset
-* returns an object with the completely or partially resetted state
+* @param	{Object}	initialState: object with the reducer's initial state
+* @param	{Object} 	state: object with the reducer's initial state
+* @param	{Array} 	keys: array of strings representing keys or paths to keys to reset
+* @return {Object} 	an object with the completely or partially resetted state
 */
 const resetOrOmit = (initialState, state, keys) => {
 	const resetState = state;
