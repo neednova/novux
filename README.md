@@ -1,11 +1,10 @@
 # novux
 
-`novux` lets you to write simpler reduce Redux code with less boilerplate. Novux uses a simple but opinionated reducer generator that handles logic for 2 actions: update and reset.
+`novux` lets you to write Redux code simpler & faster by using an opinionated reducer generator.
 
-`novux` helps us write faster and better redux logic:
-1. less boilerplate: instead of having to write and maintain dozens of actions creators, simply change state using `update` or `reset`.
-2. less maintenance: reduce the number of tests you have to write to only focus on business logic
-3. code faster: easily declare and describe state changes to make coding & collaboration easier
+1. less boilerplate: instead of having to write and maintain dozens of actions creators, simply change state using two actions, `update` or `reset`.
+2. less maintenance: reduce the number of tests you have to write to only focus on business logic — all reducer action creator tests are handled by `novux`
+3. code faster: easily declare and describe state changes to make coding & collaboration easier, even as state changes become more complex
 
 ## Installation
 
