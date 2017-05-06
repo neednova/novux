@@ -1,6 +1,6 @@
 {
   "name": "novux",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Easily update & reset redux state",
   "repository": "https://github.com/neednova/novux",
   "main": "build/index.js",

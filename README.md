@@ -1,5 +1,4 @@
 # novux
-
 `novux` lets you to write Redux code simpler & faster by using an opinionated reducer generator.
 
 1. less boilerplate: instead of having to write and maintain dozens of actions creators, simply change state using two actions, `update` or `reset`.
